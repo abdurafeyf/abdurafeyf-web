@@ -1,9 +1,5 @@
-Welcome to this blog template by [cassidoo](https://cassidoo.co)!
+Hello there! I am completing my undergraduate degree in Software Engineering / Computer Science at [National University of Sciences and Technology](https://nust.edu.pk) under the tutelage of [Dr. Hashir M. Kiani](https://seecs.nust.edu.pk/faculty/hashir-moheed-kiani/) and [Dr. Nazia Perwaiz](https://seecs.nust.edu.pk/faculty/nazia-perwaiz/). My research interests include Natural Language Processing and Machine Learning. My goal is to understand biases of NLP models, and leverage this understanding to build more efficient and controllable systems.
 
-It's using Astro and TinaCMS. You can [clone it on GitHub](https://github.com/cassidoo/blahg) to use it for yourself, and see how it works! I would _love_ if you told me when you do use it, I love seeing variations on it!
+In Summer 2024, I worked as a Research Assistant at the SEARCH Lab, [University of Saskatchewan](https://usask.ca/), under the supervision of [Dr. Zadia Codabux](https://www.cs.usask.ca/faculty/zadiacodabux/research.html), conducting research on ‘Reducing Technical Debt by Streamlining Issue Assignment on GitHub’ under the AI4SE umbrella.
 
-The tags at the bottom of the page are dynamically generated. The more tags you use, the more tags are added to the list! Posts are simple markdown files.
-
-You should also check out [my newsletter](https://cassidoo.co/newsletter), or my word game [Jumblie](https://jumblie.com/?utm_campaign=blahgtmp&utm_source=github), or my [GitHub profile](https://github.com/cassidoo). Or don't. Follow your dreams.
-
-Enjoy!
+During my junior year, I spent a semester at [Utah Tech University](https://utahtech.edu/), studying Machine Learning and Distributed Computing. The whole semester was funded by the U.S. Department of State in partnership with [IREX](https://www.irex.org/).
