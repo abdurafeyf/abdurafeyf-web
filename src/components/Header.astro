@@ -9,6 +9,9 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
 			<h1>{SITE_TITLE}</h1>
 			<h2>{SITE_DESCRIPTION}</h2>
 		</div>
+		<div class="header-frame">
+			<div class="zoomed-circle"></div>
+		</div>
 	</div>
 </header>
 <nav>
@@ -18,5 +21,15 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
 <style>
 	h2 {
 		margin: 0.5em 0;
+	}
+
+	.zoomed-circle {
+		width: 250px;
+		height: 250px;
+		border-radius: 50%;
+		background-image: url('/public/standing-profile.jpg');
+		background-size: 150%; /* Zoom */
+		background-position: center;
+		background-repeat: no-repeat;
 	}
 </style>
