@@ -10,4 +10,7 @@ tags:
 added: 2025-08-10T19:00:00.000Z
 ---
 
-[Click Here To View!](https://docs.google.com/presentation/d/1zZF8N5TcDGH3HD5Crmh9TJXVgJlM-lVc/edit?usp=sharing\&ouid=101907711398423663374\&rtpof=true\&sd=true)
+# Abstract
+This presentation reviews DualU-Net, an efficient deep learning architecture for nuclei segmentation in histopathology images that reduces computational complexity by eliminating decoder redundancy. Unlike HoVer-Net's three-decoder approach, DualU-Net uses only two heads—segmentation and detection—achieving a 33% reduction in decoder-side computation from O(L × N × k² × C × 3) to O(L × N × k² × C × 2). Empirical validation demonstrates 5× faster inference than HoVer-Net while maintaining segmentation accuracy, proving that architectural simplification through redundancy elimination can significantly improve algorithmic efficiency in medical image analysis applications.
+
+[Click Here To View!](https://assets.tina.io/1fb09d03-9237-4c49-aaa9-d024a83c7ac7/Design and Analysis of Algorithm - DualUNet.pptx.pdf)
