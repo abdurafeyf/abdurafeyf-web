@@ -12,7 +12,8 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     <div class="header-frame">
       <div class="profile-container">
         <div class="zoomed-circle"></div>
-        <!-- Small Spotify Badge -->
+
+        <!-- Spotify Badge -->
         <button
           class="spotify-badge top-right"
           id="spotify-toggle"
@@ -25,41 +26,65 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
           </svg>
           <span class="spotify-text">♪</span>
         </button>
-      </div>
-    </div>
-  </div>
 
-  <!-- Compact Mini Player -->
-  <div id="mini-player" class="mini-player hidden">
-    <div class="mini-content">
-      <div class="track-info">
-        <svg class="mini-spotify-icon" viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.84-.179-.959-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.361 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.299.421-1.02.599-1.559.3z"
-          ></path>
-        </svg>
-        <div class="song-text">
-          <span class="song-name">Your Song Title</span>
-          <span class="artist">Your Artist Name</span>
+        <!-- Profile Music Player Overlay -->
+        <div class="profile-music-overlay hidden" id="music-overlay">
+          <div class="overlay-background"></div>
+
+          <div class="music-interface">
+            <!-- Spinning Vinyl Record -->
+            <div class="vinyl-container">
+              <div class="vinyl-record">
+                <div class="vinyl-center">
+                  <svg
+                    class="vinyl-spotify"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.84-.179-.959-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.361 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.299.421-1.02.599-1.559.3z"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="vinyl-grooves"></div>
+              </div>
+              <div class="vinyl-arm"></div>
+            </div>
+
+            <!-- Track Display -->
+            <div class="track-display">
+              <div class="now-playing-text">♪ NOW PLAYING</div>
+              <div class="track-title">Your Song Title</div>
+              <div class="track-artist">Your Artist Name</div>
+            </div>
+
+            <!-- Music Controls -->
+            <div class="music-controls">
+              <button class="control-btn">⏮</button>
+              <button class="control-btn play-btn">⏯</button>
+              <button class="control-btn">⏭</button>
+            </div>
+
+            <!-- Spotify Player -->
+            <div class="spotify-player-container">
+              <iframe
+                src="https://open.spotify.com/embed/track/6EOKwO6WaLal58MSsi6U4W?utm_source=generator&theme=0"
+                width="100%"
+                height="152"
+                frameborder="0"
+                allowfullscreen=""
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+                class="profile-player"
+              >
+              </iframe>
+            </div>
+
+            <!-- Close Button -->
+            <button class="overlay-close" id="close-overlay">×</button>
+          </div>
         </div>
-        <div class="pulse-indicator"></div>
       </div>
-
-      <div class="mini-player-embed">
-        <iframe
-          src="https://open.spotify.com/embed/track/6EOKwO6WaLal58MSsi6U4W?utm_source=generator&theme=0"
-          width="250"
-          height="80"
-          frameborder="0"
-          allowfullscreen=""
-          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-          loading="lazy"
-          class="mini-iframe"
-        >
-        </iframe>
-      </div>
-
-      <button class="mini-close" id="close-mini">×</button>
     </div>
   </div>
 </header>
@@ -87,6 +112,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
+    transition: all 0.3s ease;
   }
 
   .spotify-badge {
@@ -106,6 +132,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     font-weight: 600;
     transition: all 0.3s ease;
     cursor: pointer;
+    z-index: 10;
   }
 
   .spotify-badge:hover {
@@ -129,95 +156,156 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     color: white;
   }
 
-  /* Mini Player */
-  .mini-player {
-    position: fixed;
+  /* Profile Music Overlay */
+  .profile-music-overlay {
+    position: absolute;
     top: 0;
-    left: 50%;
-    transform: translateX(-50%) translateY(-100%);
-    background: linear-gradient(135deg, #1db954 0%, #191414 100%);
-    border-radius: 0 0 20px 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(15px);
-    z-index: 1000;
+    left: 0;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(0.9);
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid rgba(29, 185, 84, 0.2);
+    z-index: 5;
+    overflow: hidden;
   }
 
-  .mini-player.visible {
-    transform: translateX(-50%) translateY(0);
+  .profile-music-overlay.visible {
+    opacity: 1;
+    transform: scale(1);
   }
 
-  .mini-content {
-    display: flex;
-    align-items: center;
-    padding: 12px 16px;
-    gap: 12px;
-    max-width: 400px;
+  .overlay-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      circle,
+      rgba(25, 20, 20, 0.95) 0%,
+      rgba(29, 185, 84, 0.9) 100%
+    );
+    backdrop-filter: blur(8px);
+    border-radius: 50%;
   }
 
-  .track-info {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    min-width: 120px;
-  }
-
-  .mini-spotify-icon {
-    width: 18px;
-    height: 18px;
-    color: #1db954;
-    flex-shrink: 0;
-  }
-
-  .song-text {
+  .music-interface {
+    position: relative;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 1px;
-    min-width: 0;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
   }
 
-  .song-name {
-    color: white;
-    font-size: 0.8rem;
-    font-weight: 600;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100px;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  /* Spinning Vinyl Record */
+  .vinyl-container {
+    position: relative;
+    margin-bottom: 15px;
   }
 
-  .artist {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.7rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100px;
+  .vinyl-record {
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, #1db954 0%, #191414 30%, #000 100%);
+    border-radius: 50%;
+    position: relative;
+    animation: spin 4s linear infinite;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
   }
 
-  .pulse-indicator {
-    width: 6px;
-    height: 6px;
+  .vinyl-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
     background: #1db954;
     border-radius: 50%;
-    animation: pulseIndicator 1.5s ease-in-out infinite;
-    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .mini-player-embed {
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  .vinyl-spotify {
+    width: 12px;
+    height: 12px;
+    color: white;
   }
 
-  .mini-iframe {
-    border-radius: 8px;
-    max-width: 250px;
+  .vinyl-grooves {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border: 2px solid rgba(29, 185, 84, 0.3);
+    border-radius: 50%;
   }
 
-  .mini-close {
+  .vinyl-grooves::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    border: 1px solid rgba(29, 185, 84, 0.2);
+    border-radius: 50%;
+  }
+
+  .vinyl-arm {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    width: 3px;
+    height: 40px;
+    background: linear-gradient(to bottom, #666, #333);
+    border-radius: 2px;
+    transform-origin: top center;
+    animation: armMove 4s ease-in-out infinite alternate;
+  }
+
+  /* Track Display */
+  .track-display {
+    text-align: center;
+    color: white;
+    margin-bottom: 10px;
+  }
+
+  .now-playing-text {
+    font-size: 0.6rem;
+    opacity: 0.8;
+    margin-bottom: 2px;
+    letter-spacing: 0.5px;
+  }
+
+  .track-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 1px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  }
+
+  .track-artist {
+    font-size: 0.7rem;
+    opacity: 0.9;
+  }
+
+  /* Music Controls */
+  .music-controls {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+  }
+
+  .control-btn {
     background: rgba(255, 255, 255, 0.1);
     border: none;
     color: white;
@@ -229,13 +317,74 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
-    flex-shrink: 0;
+    font-size: 0.7rem;
   }
 
-  .mini-close:hover {
-    background: rgba(255, 255, 255, 0.2);
+  .control-btn:hover {
+    background: rgba(29, 185, 84, 0.3);
     transform: scale(1.1);
+  }
+
+  .play-btn {
+    background: rgba(29, 185, 84, 0.2);
+    border: 1px solid rgba(29, 185, 84, 0.5);
+  }
+
+  /* Spotify Player Container */
+  .spotify-player-container {
+    width: 200px;
+    height: 80px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(0.85);
+  }
+
+  .profile-player {
+    border-radius: 10px;
+  }
+
+  /* Close Button */
+  .overlay-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .overlay-close:hover {
+    background: rgba(255, 0, 0, 0.3);
+    transform: scale(1.1);
+  }
+
+  /* Animations */
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes armMove {
+    0% {
+      transform: rotate(-10deg);
+    }
+    100% {
+      transform: rotate(5deg);
+    }
   }
 
   @keyframes pulse {
@@ -248,41 +397,41 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     }
   }
 
-  @keyframes pulseIndicator {
-    0%,
-    100% {
-      opacity: 0.7;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 1;
-      transform: scale(1.3);
-    }
-  }
-
   /* Responsive Design */
   @media (max-width: 768px) {
-    .mini-content {
-      padding: 10px 12px;
-      gap: 8px;
-    }
-
-    .mini-iframe {
-      width: 200px;
-      height: 80px;
-    }
-
-    .song-name {
-      max-width: 80px;
-    }
-
-    .artist {
-      max-width: 80px;
-    }
-
-    .zoomed-circle {
+    .zoomed-circle,
+    .profile-music-overlay {
       width: 200px;
       height: 200px;
+    }
+
+    .vinyl-record {
+      width: 50px;
+      height: 50px;
+    }
+
+    .vinyl-center {
+      width: 16px;
+      height: 16px;
+    }
+
+    .vinyl-spotify {
+      width: 10px;
+      height: 10px;
+    }
+
+    .track-title {
+      font-size: 0.7rem;
+    }
+
+    .track-artist {
+      font-size: 0.6rem;
+    }
+
+    .spotify-player-container {
+      width: 160px;
+      height: 70px;
+      transform: scale(0.8);
     }
 
     .spotify-badge {
@@ -291,44 +440,34 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
       padding: 5px 8px;
       font-size: 0.6rem;
     }
-
-    .spotify-icon {
-      width: 12px;
-      height: 12px;
-    }
   }
 
   @media (max-width: 480px) {
-    .mini-content {
-      flex-direction: column;
-      padding: 8px 10px;
-      gap: 6px;
-    }
-
-    .track-info {
-      justify-content: center;
-    }
-
-    .mini-iframe {
-      width: 180px;
-      height: 80px;
-    }
-
-    .zoomed-circle {
+    .zoomed-circle,
+    .profile-music-overlay {
       width: 150px;
       height: 150px;
+    }
+
+    .music-interface {
+      padding: 15px;
+    }
+
+    .vinyl-record {
+      width: 40px;
+      height: 40px;
+    }
+
+    .spotify-player-container {
+      width: 120px;
+      height: 60px;
+      transform: scale(0.75);
     }
 
     .spotify-badge {
       top: 8px;
       right: 8px;
       padding: 4px 6px;
-      font-size: 0.6rem;
-    }
-
-    .spotify-icon {
-      width: 10px;
-      height: 10px;
     }
   }
 </style>
@@ -336,32 +475,52 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const spotifyToggle = document.getElementById("spotify-toggle");
-    const miniPlayer = document.getElementById("mini-player");
-    const closeMini = document.getElementById("close-mini");
+    const musicOverlay = document.getElementById("music-overlay");
+    const closeOverlay = document.getElementById("close-overlay");
+    const profilePic = document.querySelector(".zoomed-circle");
 
     spotifyToggle.addEventListener("click", function () {
-      miniPlayer.classList.remove("hidden");
-      miniPlayer.classList.add("visible");
+      musicOverlay.classList.remove("hidden");
+      musicOverlay.classList.add("visible");
 
-      // Small animation for the button
-      spotifyToggle.style.transform = "scale(1.1)";
-      setTimeout(() => {
-        spotifyToggle.style.transform = "scale(1)";
-      }, 150);
+      // Dim the original profile picture
+      profilePic.style.filter = "brightness(0.3) blur(2px)";
+
+      // Hide the badge during overlay
+      spotifyToggle.style.opacity = "0";
+      spotifyToggle.style.pointerEvents = "none";
     });
 
-    closeMini.addEventListener("click", function () {
-      miniPlayer.classList.remove("visible");
+    closeOverlay.addEventListener("click", function () {
+      musicOverlay.classList.remove("visible");
+
+      // Restore original profile picture
+      profilePic.style.filter = "brightness(1) blur(0px)";
+
+      // Show the badge again
+      spotifyToggle.style.opacity = "1";
+      spotifyToggle.style.pointerEvents = "auto";
+
       setTimeout(() => {
-        miniPlayer.classList.add("hidden");
+        musicOverlay.classList.add("hidden");
       }, 500);
     });
 
     // Close with Escape key
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && miniPlayer.classList.contains("visible")) {
-        closeMini.click();
+      if (e.key === "Escape" && musicOverlay.classList.contains("visible")) {
+        closeOverlay.click();
       }
+    });
+
+    // Control button interactions
+    document.querySelectorAll(".control-btn").forEach((btn) => {
+      btn.addEventListener("click", function () {
+        this.style.transform = "scale(0.9)";
+        setTimeout(() => {
+          this.style.transform = "scale(1)";
+        }, 100);
+      });
     });
   });
 </script>
