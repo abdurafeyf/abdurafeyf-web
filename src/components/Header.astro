@@ -1,4 +1,5 @@
 ---
+// Header.astro
 import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
 ---
@@ -9,12 +10,20 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
       <h1>{SITE_TITLE}</h1>
       <h2>{SITE_DESCRIPTION}</h2>
     </div>
+
     <div class="header-frame">
       <div class="profile-container">
-        <div class="zoomed-circle"></div>
+        <div class="zoomed-circle" role="img" aria-label="profile image"></div>
+
         <!-- Simple Spotify Badge -->
-        <button class="music-btn" id="music-toggle">
-          <svg viewBox="0 0 24 24" fill="#1db954">
+        <button
+          class="music-btn"
+          id="music-toggle"
+          type="button"
+          aria-label="Open music player"
+        >
+          <!-- SVG uses currentColor so CSS can recolor it -->
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path
               d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.84-.179-.959-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.361 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.299.421-1.02.599-1.559.3z"
             ></path>
@@ -31,10 +40,16 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
 </nav>
 
 <!-- Backdrop for overlay effect -->
-<div class="backdrop hidden" id="backdrop"></div>
+<div class="backdrop hidden" id="backdrop" aria-hidden="true"></div>
 
 <!-- Floating Music Player -->
-<div class="floating-player hidden" id="music-player">
+<div
+  class="floating-player hidden"
+  id="music-player"
+  role="dialog"
+  aria-modal="true"
+  aria-hidden="true"
+>
   <div class="player-card">
     <iframe
       src="https://open.spotify.com/embed/track/4iV5W9uYEdYUVa79Axb7Rh?utm_source=generator&theme=0"
@@ -48,57 +63,109 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     >
     </iframe>
 
-    <button class="close-btn" id="close-player">✕</button>
+    <button
+      class="close-btn"
+      id="close-player"
+      type="button"
+      aria-label="Close music player">✕</button
+    >
   </div>
 </div>
 
 <style>
+  /* Utility used by this component so it doesn't rely on external CSS frameworks */
+  .hidden {
+    display: none !important;
+  }
+
   h2 {
     margin: 0.5em 0;
+  }
+
+  .header-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.5rem 0;
+  }
+  .header-frame {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
 
   .profile-container {
     position: relative;
     display: inline-block;
+    /* ensure container provides a stacking context */
+    z-index: 1;
   }
 
+  /* corrected image path (Astro serves /public at root) */
   .zoomed-circle {
-    width: 250px;
-    height: 250px;
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
-    background-image: url("/public/standing-profile.jpg");
+    background-image: url("/standing-profile.jpg");
     background-size: 150%;
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    transition: transform 0.35s ease;
+    z-index: 1;
   }
 
-  /* Simple Music Button */
+  .zoomed-circle:hover {
+    transform: translateY(-4px) scale(1.01);
+  }
+
+  /* Music Button - sits above the image and responds to hover/focus */
   .music-btn {
     position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 40px;
-    height: 40px;
-    background: white;
+    top: 10px;
+    right: 10px;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.98);
     border: none;
     border-radius: 50%;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition:
+      transform 0.18s ease,
+      background 0.18s ease,
+      color 0.18s ease,
+      box-shadow 0.18s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  .music-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 4px 20px rgba(29, 185, 84, 0.3);
+    z-index: 3; /* ensure it's on top */
+    color: #1db954; /* icon color (SVG uses currentColor) */
+    padding: 0;
+    pointer-events: auto;
   }
 
   .music-btn svg {
     width: 22px;
     height: 22px;
+    display: block;
+  }
+
+  .music-btn:hover,
+  .music-btn:focus {
+    transform: scale(1.08);
+    background: #1db954;
+    color: #fff; /* icon turns white */
+    box-shadow: 0 10px 30px rgba(29, 185, 84, 0.18);
+    outline: none;
+  }
+
+  .music-btn:focus {
+    box-shadow:
+      0 10px 40px rgba(29, 185, 84, 0.25),
+      0 0 0 4px rgba(29, 185, 84, 0.08);
   }
 
   /* Backdrop for overlay effect */
@@ -110,10 +177,9 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     height: 100vh;
     background: rgba(0, 0, 0, 0.6);
     z-index: 999;
-    transition: all 0.3s ease;
+    transition: opacity 0.3s ease;
     opacity: 0;
   }
-
   .backdrop.visible {
     opacity: 1;
   }
@@ -123,12 +189,16 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0);
+    transform: translate(-50%, -50%) scale(0.92);
     z-index: 1000;
-    transition: all 0.3s ease;
+    transition:
+      transform 0.28s cubic-bezier(0.2, 0.9, 0.2, 1),
+      opacity 0.28s ease;
     opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-
   .floating-player.visible {
     transform: translate(-50%, -50%) scale(1);
     opacity: 1;
@@ -136,10 +206,10 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
 
   .player-card {
     background: white;
-    border-radius: 20px;
-    padding: 25px;
+    border-radius: 16px;
+    padding: 18px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-    width: 350px;
+    width: 360px;
     position: relative;
   }
 
@@ -147,54 +217,34 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     pointer-events: auto !important;
     position: relative;
     z-index: 1;
-  }
-
-  .floating-player iframe {
     border: none;
     outline: none;
   }
 
-  .track-info {
-    text-align: center;
-    margin-bottom: 15px;
-  }
-
-  .track-name {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 5px;
-  }
-
-  .artist-name {
-    font-size: 0.9rem;
-    color: #666;
-  }
-
   .close-btn {
     position: absolute;
-    top: -10px;
-    right: -10px;
+    top: -12px;
+    right: -12px;
     background: #ff4757;
     border: none;
-    width: 35px;
-    height: 35px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     cursor: pointer;
     font-size: 16px;
     color: white;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
+    transition:
+      transform 0.15s ease,
+      background 0.15s ease;
+    box-shadow: 0 6px 16px rgba(255, 71, 87, 0.28);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
+    font-weight: 700;
   }
-
   .close-btn:hover {
+    transform: scale(1.06);
     background: #ff3742;
-    transform: scale(1.1);
-    box-shadow: 0 6px 16px rgba(255, 71, 87, 0.4);
   }
 
   /* Hide scrollbar when modal is open */
@@ -205,75 +255,107 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
   /* Responsive */
   @media (max-width: 768px) {
     .zoomed-circle {
-      width: 200px;
-      height: 200px;
+      width: 120px;
+      height: 120px;
+      background-size: 160%;
     }
-
     .player-card {
-      width: 300px;
-      padding: 20px;
+      width: 320px;
+      padding: 16px;
+    }
+    .music-btn {
+      width: 40px;
+      height: 40px;
+      top: 8px;
+      right: 8px;
     }
   }
 
   @media (max-width: 480px) {
     .zoomed-circle {
-      width: 150px;
-      height: 150px;
+      width: 96px;
+      height: 96px;
+      background-size: 200%;
     }
-
     .player-card {
       width: 280px;
+      padding: 14px;
       margin: 20px;
-      padding: 20px;
     }
   }
 </style>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const musicToggle = document.getElementById("music-toggle");
-    const musicPlayer = document.getElementById("music-player");
-    const closePlayer = document.getElementById("close-player");
-    const backdrop = document.getElementById("backdrop");
+  (function initMusicPlayer() {
+    function ready(fn) {
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", fn);
+      } else {
+        fn();
+      }
+    }
 
-    if (musicToggle && musicPlayer && closePlayer && backdrop) {
-      musicToggle.addEventListener("click", function () {
-        // Show backdrop and player
+    ready(function () {
+      const musicToggle = document.getElementById("music-toggle");
+      const musicPlayer = document.getElementById("music-player");
+      const closePlayer = document.getElementById("close-player");
+      const backdrop = document.getElementById("backdrop");
+
+      if (!musicToggle || !musicPlayer || !closePlayer || !backdrop) return;
+
+      // helper to open modal
+      function openPlayer() {
+        // ensure visible state starts from not-hidden
         backdrop.classList.remove("hidden");
         musicPlayer.classList.remove("hidden");
-
-        // Add body class to prevent scrolling
+        // small reflow to ensure transitions run
+        void backdrop.offsetHeight;
+        backdrop.classList.add("visible");
+        musicPlayer.classList.add("visible");
+        musicPlayer.setAttribute("aria-hidden", "false");
+        backdrop.setAttribute("aria-hidden", "false");
         document.body.classList.add("modal-open");
+      }
 
-        // Trigger animations
-        setTimeout(() => {
-          backdrop.classList.add("visible");
-          musicPlayer.classList.add("visible");
-        }, 10);
-      });
-
+      // helper to close modal
       function closePlayerModal() {
         backdrop.classList.remove("visible");
         musicPlayer.classList.remove("visible");
+        musicPlayer.setAttribute("aria-hidden", "true");
+        backdrop.setAttribute("aria-hidden", "true");
         document.body.classList.remove("modal-open");
 
-        setTimeout(() => {
+        // allow transition out before hiding from flow
+        setTimeout(function () {
           backdrop.classList.add("hidden");
           musicPlayer.classList.add("hidden");
         }, 300);
       }
 
-      closePlayer.addEventListener("click", closePlayerModal);
+      musicToggle.addEventListener("click", function (e) {
+        e.stopPropagation();
+        openPlayer();
+      });
+
+      closePlayer.addEventListener("click", function (e) {
+        e.stopPropagation();
+        closePlayerModal();
+      });
 
       // Close on backdrop click
-      backdrop.addEventListener("click", closePlayerModal);
+      backdrop.addEventListener("click", function (e) {
+        if (e.target === backdrop) closePlayerModal();
+      });
 
       // Close with Escape
       document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape" && musicPlayer.classList.contains("visible")) {
+        if (
+          (e.key === "Escape" || e.key === "Esc") &&
+          musicPlayer.classList.contains("visible")
+        ) {
           closePlayerModal();
         }
       });
-    }
-  });
+    });
+  })();
 </script>
