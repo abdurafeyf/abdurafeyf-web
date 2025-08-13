@@ -12,103 +12,45 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     <div class="header-frame">
       <div class="profile-container">
         <div class="zoomed-circle"></div>
-        <!-- Spotify Badge -->
-        <button
-          class="spotify-badge top-right"
-          id="spotify-toggle"
-          title="Play Music"
-        >
-          <svg class="spotify-icon" viewBox="0 0 24 24" fill="currentColor">
+        <!-- Simple Spotify Badge -->
+        <button class="music-btn" id="music-toggle">
+          <svg viewBox="0 0 24 24" fill="#1db954">
             <path
               d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.84-.179-.959-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.361 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.299.421-1.02.599-1.559.3z"
             ></path>
           </svg>
-          <span class="spotify-text">♪</span>
         </button>
       </div>
     </div>
   </div>
 </header>
+
 <nav>
   <HeaderLink href="/">home</HeaderLink>
   <HeaderLink href="/posts">posts</HeaderLink>
 </nav>
 
-<!-- Sticky Music Bar -->
-<div class="sticky-music-bar hidden" id="music-bar">
-  <div class="music-bar-content">
-    <!-- Left: Song Info -->
-    <div class="song-info-section">
-      <div class="album-thumb">
-        <svg class="mini-spotify-logo" viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.84-.179-.959-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.361 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.299.421-1.02.599-1.559.3z"
-          ></path>
-        </svg>
-      </div>
-      <div class="track-details">
-        <div class="now-playing-label">
-          <span class="pulse-dot"></span>
-          Now Playing
-        </div>
-        <div class="scrolling-text">
-          <span class="track-scroll">Your Song Title - Your Artist Name</span>
-        </div>
-      </div>
+<!-- Floating Music Player -->
+<div class="floating-player hidden" id="music-player">
+  <div class="player-card">
+    <div class="track-info">
+      <div class="track-name">Your Song Title</div>
+      <div class="artist-name">Your Artist Name</div>
     </div>
 
-    <!-- Center: Spotify Player -->
-    <div class="player-section">
-      <iframe
-        src="https://open.spotify.com/embed/track/6EOKwO6WaLal58MSsi6U4W?utm_source=generator&theme=0"
-        width="300"
-        height="80"
-        frameborder="0"
-        allowfullscreen=""
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy"
-        class="sticky-player"
-      >
-      </iframe>
-    </div>
+    <iframe
+      src="https://open.spotify.com/embed/track/6EOKwO6WaLal58MSsi6U4W?utm_source=generator&theme=0"
+      width="100%"
+      height="152"
+      frameborder="0"
+      allowfullscreen=""
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy"
+      style="border-radius: 12px;"
+    >
+    </iframe>
 
-    <!-- Right: Controls -->
-    <div class="controls-section">
-      <button class="control-button" title="Play/Pause">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path d="M8 5v14l11-7z"></path>
-        </svg>
-      </button>
-      <button class="control-button" title="Volume">
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"
-          ></path>
-        </svg>
-      </button>
-      <button
-        class="control-button expand-btn"
-        id="expand-player"
-        title="Expand Player"
-      >
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"
-          ></path>
-        </svg>
-      </button>
-      <button
-        class="control-button close-btn"
-        id="close-sticky"
-        title="Close Player"
-      >
-        <svg viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
-          ></path>
-        </svg>
-      </button>
-    </div>
+    <button class="close-btn" id="close-player">✕</button>
   </div>
 </div>
 
@@ -133,364 +75,151 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     position: relative;
   }
 
-  .spotify-badge {
+  /* Simple Music Button */
+  .music-btn {
     position: absolute;
-    background: linear-gradient(135deg, #1db954 0%, #1ed760 100%);
-    color: white;
-    padding: 6px 10px;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    box-shadow: 0 3px 10px rgba(29, 185, 84, 0.4);
-    animation: pulse 2s infinite;
-    border: 1.5px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    font-size: 0.7rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    cursor: pointer;
-  }
-
-  .spotify-badge:hover {
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(29, 185, 84, 0.6);
-  }
-
-  .spotify-badge.top-right {
     top: 15px;
     right: 15px;
-  }
-
-  .spotify-icon {
-    width: 14px;
-    height: 14px;
-    color: white;
-  }
-
-  .spotify-text {
-    font-size: 14px;
-    color: white;
-  }
-
-  /* Sticky Music Bar */
-  .sticky-music-bar {
-    position: sticky;
-    top: 0;
-    width: 100%;
-    background: linear-gradient(90deg, #191414 0%, #1db954 50%, #191414 100%);
-    border-bottom: 2px solid rgba(29, 185, 84, 0.3);
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-    z-index: 1000;
-    transform: translateY(-100%);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .sticky-music-bar.visible {
-    transform: translateY(0);
-  }
-
-  .music-bar-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    gap: 20px;
-  }
-
-  /* Left Section - Song Info */
-  .song-info-section {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    min-width: 200px;
-    flex: 1;
-  }
-
-  .album-thumb {
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #1db954, #1ed760);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 3px 10px rgba(29, 185, 84, 0.4);
-    flex-shrink: 0;
-  }
-
-  .mini-spotify-logo {
-    width: 20px;
-    height: 20px;
-    color: white;
-  }
-
-  .track-details {
-    color: white;
-    min-width: 0;
-    flex: 1;
-  }
-
-  .now-playing-label {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.7rem;
-    opacity: 0.8;
-    margin-bottom: 2px;
-  }
-
-  .pulse-dot {
-    width: 6px;
-    height: 6px;
-    background: #1db954;
-    border-radius: 50%;
-    animation: pulseIndicator 1.5s ease-in-out infinite;
-  }
-
-  .scrolling-text {
-    overflow: hidden;
-    white-space: nowrap;
-    width: 180px;
-  }
-
-  .track-scroll {
-    display: inline-block;
-    font-size: 0.9rem;
-    font-weight: 600;
-    animation: scrollText 15s linear infinite;
-    padding-right: 50px;
-  }
-
-  /* Center Section - Player */
-  .player-section {
-    flex: 2;
-    display: flex;
-    justify-content: center;
-    max-width: 350px;
-  }
-
-  .sticky-player {
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  }
-
-  /* Right Section - Controls */
-  .controls-section {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex: 1;
-    justify-content: flex-end;
-    min-width: 150px;
-  }
-
-  .control-button {
-    background: rgba(255, 255, 255, 0.1);
+    width: 40px;
+    height: 40px;
+    background: white;
     border: none;
-    color: white;
-    width: 36px;
-    height: 36px;
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .music-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 20px rgba(29, 185, 84, 0.3);
+  }
+
+  .music-btn svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* Floating Player */
+  .floating-player {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    opacity: 0;
+  }
+
+  .floating-player.visible {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+
+  .player-card {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    width: 350px;
+    position: relative;
+  }
+
+  .track-info {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  .track-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+  }
+
+  .artist-name {
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #f5f5f5;
+    border: none;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(5px);
-  }
-
-  .control-button:hover {
-    background: rgba(29, 185, 84, 0.3);
-    transform: scale(1.1);
-  }
-
-  .control-button svg {
-    width: 18px;
-    height: 18px;
+    font-size: 14px;
+    color: #666;
+    transition: all 0.2s ease;
   }
 
   .close-btn:hover {
-    background: rgba(255, 0, 0, 0.3);
+    background: #e5e5e5;
+    transform: scale(1.1);
   }
 
-  /* Animations */
-  @keyframes pulse {
-    0%,
-    100% {
-      box-shadow: 0 3px 10px rgba(29, 185, 84, 0.4);
-    }
-    50% {
-      box-shadow: 0 3px 15px rgba(29, 185, 84, 0.7);
-    }
-  }
-
-  @keyframes pulseIndicator {
-    0%,
-    100% {
-      opacity: 0.8;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 1;
-      transform: scale(1.3);
-    }
-  }
-
-  @keyframes scrollText {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-100%);
-    }
-  }
-
-  /* Responsive Design */
+  /* Responsive */
   @media (max-width: 768px) {
-    .music-bar-content {
-      padding: 10px 15px;
-      gap: 15px;
-    }
-
-    .song-info-section {
-      min-width: 150px;
-    }
-
-    .scrolling-text {
-      width: 120px;
-    }
-
-    .player-section {
-      max-width: 250px;
-    }
-
-    .sticky-player {
-      width: 250px;
-      height: 80px;
-    }
-
-    .controls-section {
-      min-width: 100px;
-      gap: 6px;
-    }
-
-    .control-button {
-      width: 32px;
-      height: 32px;
-    }
-
-    .control-button svg {
-      width: 16px;
-      height: 16px;
-    }
-
     .zoomed-circle {
       width: 200px;
       height: 200px;
     }
 
-    .spotify-badge {
-      top: 10px;
-      right: 10px;
-      padding: 5px 8px;
-      font-size: 0.6rem;
+    .player-card {
+      width: 300px;
+      padding: 15px;
     }
   }
 
   @media (max-width: 480px) {
-    .music-bar-content {
-      flex-direction: column;
-      padding: 8px 10px;
-      gap: 8px;
-    }
-
-    .song-info-section {
-      justify-content: center;
-      min-width: auto;
-    }
-
-    .player-section {
-      order: 2;
-      max-width: 100%;
-    }
-
-    .sticky-player {
-      width: 100%;
-      max-width: 280px;
-    }
-
-    .controls-section {
-      order: 3;
-      justify-content: center;
-      min-width: auto;
-    }
-
     .zoomed-circle {
       width: 150px;
       height: 150px;
     }
 
-    .spotify-badge {
-      top: 8px;
-      right: 8px;
-      padding: 4px 6px;
+    .player-card {
+      width: 280px;
+      margin: 20px;
     }
   }
 </style>
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const spotifyToggle = document.getElementById("spotify-toggle");
-    const musicBar = document.getElementById("music-bar");
-    const closeSticky = document.getElementById("close-sticky");
-    const expandPlayer = document.getElementById("expand-player");
+    const musicToggle = document.getElementById("music-toggle");
+    const musicPlayer = document.getElementById("music-player");
+    const closePlayer = document.getElementById("close-player");
 
-    spotifyToggle.addEventListener("click", function () {
-      musicBar.classList.remove("hidden");
-      musicBar.classList.add("visible");
+    musicToggle.addEventListener("click", function () {
+      musicPlayer.classList.remove("hidden");
+      musicPlayer.classList.add("visible");
+    });
 
-      // Animate the badge
-      spotifyToggle.style.transform = "scale(1.1)";
+    closePlayer.addEventListener("click", function () {
+      musicPlayer.classList.remove("visible");
       setTimeout(() => {
-        spotifyToggle.style.transform = "scale(1)";
-      }, 150);
+        musicPlayer.classList.add("hidden");
+      }, 300);
     });
 
-    closeSticky.addEventListener("click", function () {
-      musicBar.classList.remove("visible");
-      setTimeout(() => {
-        musicBar.classList.add("hidden");
-      }, 400);
+    // Close on backdrop click
+    musicPlayer.addEventListener("click", function (e) {
+      if (e.target === musicPlayer) {
+        closePlayer.click();
+      }
     });
 
-    expandPlayer.addEventListener("click", function () {
-      // Add expand functionality here if needed
-      this.style.transform = "scale(0.9)";
-      setTimeout(() => {
-        this.style.transform = "scale(1)";
-      }, 100);
-    });
-
-    // Control button interactions
-    document.querySelectorAll(".control-button").forEach((btn) => {
-      btn.addEventListener("click", function () {
-        if (!this.classList.contains("close-btn")) {
-          this.style.transform = "scale(0.9)";
-          setTimeout(() => {
-            this.style.transform = "scale(1)";
-          }, 100);
-        }
-      });
-    });
-
-    // Close with Escape key
+    // Close with Escape
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && musicBar.classList.contains("visible")) {
-        closeSticky.click();
+      if (e.key === "Escape" && musicPlayer.classList.contains("visible")) {
+        closePlayer.click();
       }
     });
   });
