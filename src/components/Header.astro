@@ -192,30 +192,32 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     const musicPlayer = document.getElementById("music-player");
     const closePlayer = document.getElementById("close-player");
 
-    musicToggle.addEventListener("click", function () {
-      musicPlayer.classList.remove("hidden");
-      musicPlayer.classList.add("visible");
-    });
+    if (musicToggle && musicPlayer && closePlayer) {
+      musicToggle.addEventListener("click", function () {
+        musicPlayer.classList.remove("hidden");
+        musicPlayer.classList.add("visible");
+      });
 
-    closePlayer.addEventListener("click", function () {
-      musicPlayer.classList.remove("visible");
-      setTimeout(() => {
-        musicPlayer.classList.add("hidden");
-      }, 300);
-    });
+      closePlayer.addEventListener("click", function () {
+        musicPlayer.classList.remove("visible");
+        setTimeout(() => {
+          musicPlayer.classList.add("hidden");
+        }, 300);
+      });
 
-    // Close on backdrop click
-    musicPlayer.addEventListener("click", function (e) {
-      if (e.target === musicPlayer) {
-        closePlayer.click();
-      }
-    });
+      // Close on backdrop click
+      musicPlayer.addEventListener("click", function (e) {
+        if (e.target === musicPlayer) {
+          closePlayer.click();
+        }
+      });
 
-    // Close with Escape
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && musicPlayer.classList.contains("visible")) {
-        closePlayer.click();
-      }
-    });
+      // Close with Escape
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && musicPlayer.classList.contains("visible")) {
+          closePlayer.click();
+        }
+      });
+    }
   });
 </script>
