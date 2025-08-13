@@ -29,7 +29,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     </div>
   </div>
 
-  <!-- Horizontal Music Player Overlay -->
+  <!-- Music Player that morphs from button -->
   <div id="music-player" class="music-player hidden">
     <div class="player-content">
       <div class="song-details">
@@ -119,8 +119,10 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     backdrop-filter: blur(10px);
     font-size: 0.8rem;
     font-weight: 600;
-    transition: all 0.3s ease;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
+    z-index: 1001;
+    transform-origin: center;
   }
 
   .spotify-badge:hover {
@@ -129,27 +131,51 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     animation-duration: 1s;
   }
 
-  .spotify-badge:active {
-    transform: scale(0.98);
+  .spotify-badge.top-right {
+    top: 15px;
+    right: 15px;
+  }
+
+  /* Animation states for the button */
+  .spotify-badge.animating {
+    position: fixed !important;
+    z-index: 1002;
+    transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .spotify-badge.morphed {
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 100px !important;
+    border-radius: 0 !important;
+    padding: 15px 30px !important;
+    background: linear-gradient(
+      90deg,
+      #191414 0%,
+      #1db954 50%,
+      #191414 100%
+    ) !important;
+    font-size: 0 !important;
+    justify-content: flex-start !important;
+    opacity: 0;
   }
 
   .spotify-icon {
     width: 16px;
     height: 16px;
     color: white;
+    transition: all 0.5s ease;
   }
 
   .spotify-text {
     white-space: nowrap;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    transition: all 0.5s ease;
   }
 
-  .spotify-badge.top-right {
-    top: 15px;
-    right: 15px;
-  }
-
-  /* Horizontal Music Player Overlay */
+  /* Music Player */
   .music-player {
     position: fixed;
     top: 0;
@@ -157,15 +183,12 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     right: 0;
     background: linear-gradient(90deg, #191414 0%, #1db954 50%, #191414 100%);
     z-index: 1000;
-    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(29, 185, 84, 0.3);
-  }
-
-  .music-player.hidden {
     transform: translateY(-100%);
     opacity: 0;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .music-player.visible {
@@ -181,6 +204,14 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     max-width: 1200px;
     margin: 0 auto;
     gap: 20px;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.8s ease 0.3s;
+  }
+
+  .music-player.visible .player-content {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .song-details {
@@ -200,6 +231,8 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 15px rgba(29, 185, 84, 0.4);
+    transform: scale(0);
+    animation: scaleIn 0.5s ease 0.8s forwards;
   }
 
   .spotify-logo-large {
@@ -211,6 +244,9 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
   .track-info {
     color: white;
     min-width: 0;
+    transform: translateX(-20px);
+    opacity: 0;
+    animation: slideInLeft 0.6s ease 0.6s forwards;
   }
 
   .track-name {
@@ -247,6 +283,9 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     max-width: 400px;
     border-radius: 12px;
     overflow: hidden;
+    transform: scale(0.8);
+    opacity: 0;
+    animation: fadeInScale 0.6s ease 0.7s forwards;
   }
 
   .spotify-iframe {
@@ -266,11 +305,13 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    transform: rotate(180deg) scale(0);
+    animation: rotateIn 0.5s ease 0.9s forwards;
   }
 
   .minimize-btn:hover {
     background: rgba(255, 255, 255, 0.2);
-    transform: scale(1.1);
+    transform: scale(1.1) rotate(0deg);
   }
 
   .minimize-btn svg {
@@ -278,6 +319,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     height: 18px;
   }
 
+  /* Keyframe Animations */
   @keyframes pulse {
     0%,
     100% {
@@ -297,6 +339,32 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     50% {
       opacity: 1;
       transform: scale(1.2);
+    }
+  }
+
+  @keyframes scaleIn {
+    to {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes slideInLeft {
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInScale {
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes rotateIn {
+    to {
+      transform: rotate(0deg) scale(1);
     }
   }
 
@@ -323,10 +391,6 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
 
     .artist-name {
       font-size: 0.8rem;
-    }
-
-    .now-playing-indicator {
-      font-size: 0.7rem;
     }
 
     .zoomed-circle {
@@ -389,26 +453,54 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     const closePlayer = document.getElementById("close-player");
 
     spotifyToggle.addEventListener("click", function () {
-      musicPlayer.classList.remove("hidden");
-      musicPlayer.classList.add("visible");
+      // Get button position
+      const buttonRect = spotifyToggle.getBoundingClientRect();
 
-      // Animate the badge
-      spotifyToggle.style.transform = "scale(1.2)";
+      // Add animating class and set initial position
+      spotifyToggle.classList.add("animating");
+      spotifyToggle.style.position = "fixed";
+      spotifyToggle.style.top = buttonRect.top + "px";
+      spotifyToggle.style.left = buttonRect.left + "px";
+      spotifyToggle.style.width = buttonRect.width + "px";
+      spotifyToggle.style.height = buttonRect.height + "px";
+
+      // Start the morphing animation
       setTimeout(() => {
-        spotifyToggle.style.transform = "scale(1)";
-      }, 200);
+        spotifyToggle.classList.add("morphed");
+      }, 50);
+
+      // Show the music player after button morphs
+      setTimeout(() => {
+        musicPlayer.classList.add("visible");
+      }, 600);
+
+      // Hide the morphed button after player is visible
+      setTimeout(() => {
+        spotifyToggle.style.display = "none";
+      }, 1200);
     });
 
     closePlayer.addEventListener("click", function () {
+      // Hide music player
       musicPlayer.classList.remove("visible");
-      musicPlayer.classList.add("hidden");
+
+      // Reset and show button
+      setTimeout(() => {
+        spotifyToggle.style.display = "flex";
+        spotifyToggle.classList.remove("morphed", "animating");
+        spotifyToggle.style.position = "absolute";
+        spotifyToggle.style.top = "15px";
+        spotifyToggle.style.right = "15px";
+        spotifyToggle.style.left = "auto";
+        spotifyToggle.style.width = "auto";
+        spotifyToggle.style.height = "auto";
+      }, 300);
     });
 
     // Close with Escape key
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && musicPlayer.classList.contains("visible")) {
-        musicPlayer.classList.remove("visible");
-        musicPlayer.classList.add("hidden");
+        closePlayer.click();
       }
     });
   });
