@@ -29,31 +29,52 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     </div>
   </div>
 
-  <!-- Spotify Player Overlay -->
-  <div id="spotify-player" class="spotify-player hidden">
-    <div class="player-container">
-      <div class="player-header">
-        <div class="song-info">
-          <svg class="spotify-logo" viewBox="0 0 24 24" fill="currentColor">
+  <!-- Horizontal Music Player Overlay -->
+  <div id="music-player" class="music-player hidden">
+    <div class="player-content">
+      <div class="song-details">
+        <div class="album-art">
+          <svg
+            class="spotify-logo-large"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
             <path
               d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.84-.179-.959-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.361 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.299.421-1.02.599-1.559.3z"
             ></path>
           </svg>
-          <span class="now-playing">Now Playing</span>
         </div>
-        <button class="close-btn" id="close-player">×</button>
+        <div class="track-info">
+          <div class="track-name">Your Song Title</div>
+          <div class="artist-name">Your Artist Name</div>
+          <div class="now-playing-indicator">
+            <span class="pulse-dot"></span>
+            Now Playing
+          </div>
+        </div>
       </div>
-      <iframe
-        src="https://open.spotify.com/embed/track/6EOKwO6WaLal58MSsi6U4W?utm_source=generator&theme=0"
-        width="100%"
-        height="352"
-        frameborder="0"
-        allowfullscreen=""
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy"
-        class="spotify-iframe"
-      >
-      </iframe>
+
+      <div class="player-embed">
+        <iframe
+          src="https://open.spotify.com/embed/track/6EOKwO6WaLal58MSsi6U4W?utm_source=generator&theme=0"
+          width="100%"
+          height="80"
+          frameborder="0"
+          allowfullscreen=""
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+          class="spotify-iframe"
+        >
+        </iframe>
+      </div>
+
+      <button class="minimize-btn" id="close-player">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+          ></path>
+        </svg>
+      </button>
     </div>
   </div>
 </header>
@@ -128,83 +149,133 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     right: 15px;
   }
 
-  /* Spotify Player Overlay */
-  .spotify-player {
+  /* Horizontal Music Player Overlay */
+  .music-player {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(135deg, #191414 0%, #1db954 100%);
+    background: linear-gradient(90deg, #191414 0%, #1db954 50%, #191414 100%);
     z-index: 1000;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(29, 185, 84, 0.3);
   }
 
-  .spotify-player.hidden {
+  .music-player.hidden {
     transform: translateY(-100%);
     opacity: 0;
   }
 
-  .spotify-player.visible {
+  .music-player.visible {
     transform: translateY(0);
     opacity: 1;
   }
 
-  .player-container {
-    max-width: 500px;
+  .player-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    gap: 20px;
   }
 
-  .player-header {
+  .song-details {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    gap: 15px;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .album-art {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #1db954, #1ed760);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(29, 185, 84, 0.4);
+  }
+
+  .spotify-logo-large {
+    width: 30px;
+    height: 30px;
     color: white;
   }
 
-  .song-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  .track-info {
+    color: white;
+    min-width: 0;
   }
 
-  .spotify-logo {
-    width: 24px;
-    height: 24px;
-    color: #1db954;
-  }
-
-  .now-playing {
+  .track-name {
     font-size: 1.1rem;
-    font-weight: 600;
+    font-weight: 700;
+    margin-bottom: 2px;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
 
-  .close-btn {
+  .artist-name {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-bottom: 4px;
+  }
+
+  .now-playing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    opacity: 0.7;
+  }
+
+  .pulse-dot {
+    width: 8px;
+    height: 8px;
+    background: #1db954;
+    border-radius: 50%;
+    animation: pulseIndicator 1.5s ease-in-out infinite;
+  }
+
+  .player-embed {
+    flex: 2;
+    max-width: 400px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .spotify-iframe {
+    border-radius: 12px;
+  }
+
+  .minimize-btn {
     background: rgba(255, 255, 255, 0.1);
     border: none;
     color: white;
-    font-size: 24px;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
   }
 
-  .close-btn:hover {
+  .minimize-btn:hover {
     background: rgba(255, 255, 255, 0.2);
     transform: scale(1.1);
   }
 
-  .spotify-iframe {
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  .minimize-btn svg {
+    width: 18px;
+    height: 18px;
   }
 
   @keyframes pulse {
@@ -217,8 +288,47 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     }
   }
 
-  /* Responsive adjustments */
+  @keyframes pulseIndicator {
+    0%,
+    100% {
+      opacity: 0.7;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+  }
+
+  /* Responsive Design */
   @media (max-width: 768px) {
+    .player-content {
+      padding: 12px 20px;
+      gap: 15px;
+    }
+
+    .album-art {
+      width: 50px;
+      height: 50px;
+    }
+
+    .spotify-logo-large {
+      width: 25px;
+      height: 25px;
+    }
+
+    .track-name {
+      font-size: 1rem;
+    }
+
+    .artist-name {
+      font-size: 0.8rem;
+    }
+
+    .now-playing-indicator {
+      font-size: 0.7rem;
+    }
+
     .zoomed-circle {
       width: 200px;
       height: 200px;
@@ -235,17 +345,24 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
       width: 14px;
       height: 14px;
     }
-
-    .player-container {
-      padding: 15px;
-    }
-
-    .now-playing {
-      font-size: 1rem;
-    }
   }
 
   @media (max-width: 480px) {
+    .player-content {
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px 15px;
+    }
+
+    .song-details {
+      justify-content: center;
+      text-align: center;
+    }
+
+    .player-embed {
+      max-width: 100%;
+    }
+
     .zoomed-circle {
       width: 150px;
       height: 150px;
@@ -262,24 +379,20 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
       width: 12px;
       height: 12px;
     }
-
-    .player-container {
-      padding: 10px;
-    }
   }
 </style>
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const spotifyToggle = document.getElementById("spotify-toggle");
-    const spotifyPlayer = document.getElementById("spotify-player");
+    const musicPlayer = document.getElementById("music-player");
     const closePlayer = document.getElementById("close-player");
 
     spotifyToggle.addEventListener("click", function () {
-      spotifyPlayer.classList.remove("hidden");
-      spotifyPlayer.classList.add("visible");
+      musicPlayer.classList.remove("hidden");
+      musicPlayer.classList.add("visible");
 
-      // Add smooth animation from the badge position
+      // Animate the badge
       spotifyToggle.style.transform = "scale(1.2)";
       setTimeout(() => {
         spotifyToggle.style.transform = "scale(1)";
@@ -287,23 +400,15 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     });
 
     closePlayer.addEventListener("click", function () {
-      spotifyPlayer.classList.remove("visible");
-      spotifyPlayer.classList.add("hidden");
-    });
-
-    // Close player when clicking outside
-    spotifyPlayer.addEventListener("click", function (e) {
-      if (e.target === spotifyPlayer) {
-        spotifyPlayer.classList.remove("visible");
-        spotifyPlayer.classList.add("hidden");
-      }
+      musicPlayer.classList.remove("visible");
+      musicPlayer.classList.add("hidden");
     });
 
     // Close with Escape key
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && spotifyPlayer.classList.contains("visible")) {
-        spotifyPlayer.classList.remove("visible");
-        spotifyPlayer.classList.add("hidden");
+      if (e.key === "Escape" && musicPlayer.classList.contains("visible")) {
+        musicPlayer.classList.remove("visible");
+        musicPlayer.classList.add("hidden");
       }
     });
   });
