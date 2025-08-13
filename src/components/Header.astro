@@ -13,6 +13,19 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
       <div class="profile-container">
         <div class="zoomed-circle"></div>
       </div>
+      <!-- Spotify embed below profile -->
+      <div class="spotify-container">
+        <iframe
+          style="border-radius:12px"
+          src="https://open.spotify.com/embed/track/41P6Tnd8KIHqON0QIydx6a?utm_source=generator"
+          width="250"
+          height="80"
+          frameborder="0"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+        >
+        </iframe>
+      </div>
     </div>
   </div>
 </header>
@@ -25,6 +38,13 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
 <style>
   h2 {
     margin: 0.5em 0;
+  }
+
+  .header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
   }
 
   .profile-container {
@@ -40,14 +60,21 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     background-size: 150%;
     background-position: center;
     background-repeat: no-repeat;
-    position: relative;
   }
 
-  /* Keep base layout and responsive rules you had */
+  .spotify-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+  }
+
   @media (max-width: 768px) {
     .zoomed-circle {
       width: 200px;
       height: 200px;
+    }
+    .spotify-container iframe {
+      width: 200px;
     }
   }
 
@@ -55,6 +82,9 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     .zoomed-circle {
       width: 150px;
       height: 150px;
+    }
+    .spotify-container iframe {
+      width: 150px;
     }
   }
 </style>
