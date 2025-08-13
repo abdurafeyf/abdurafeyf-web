@@ -68,6 +68,20 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     justify-content: center;
   }
 
+  .header-frame {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* centers both pic + Spotify */
+    gap: 10px; /* space between pic and player */
+  }
+
+  .spotify-container iframe {
+    display: block;
+    width: 250px; /* match profile pic width */
+    height: 80px;
+    border-radius: 12px;
+  }
+
   @media (max-width: 768px) {
     .zoomed-circle {
       width: 200px;
