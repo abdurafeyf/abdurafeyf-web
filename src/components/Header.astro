@@ -12,13 +12,11 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     <div class="header-frame">
       <div class="profile-container">
         <div class="zoomed-circle"></div>
-        <!-- Clickable Spotify Badge positioned at top-right -->
-        <a
-          href="https://open.spotify.com/track/6EOKwO6WaLal58MSsi6U4W?si=6754a40723a64527"
-          target="_blank"
-          rel="noopener noreferrer"
+        <!-- Clickable Spotify Badge -->
+        <button
           class="spotify-badge top-right"
-          title="Play on Spotify"
+          id="spotify-toggle"
+          title="Play Music"
         >
           <svg class="spotify-icon" viewBox="0 0 24 24" fill="currentColor">
             <path
@@ -26,8 +24,36 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
             ></path>
           </svg>
           <span class="spotify-text">Play</span>
-        </a>
+        </button>
       </div>
+    </div>
+  </div>
+
+  <!-- Spotify Player Overlay -->
+  <div id="spotify-player" class="spotify-player hidden">
+    <div class="player-container">
+      <div class="player-header">
+        <div class="song-info">
+          <svg class="spotify-logo" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.84-.179-.959-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.361 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.299.421-1.02.599-1.559.3z"
+            ></path>
+          </svg>
+          <span class="now-playing">Now Playing</span>
+        </div>
+        <button class="close-btn" id="close-player">×</button>
+      </div>
+      <iframe
+        src="https://open.spotify.com/embed/track/6EOKwO6WaLal58MSsi6U4W?utm_source=generator&theme=0"
+        width="100%"
+        height="352"
+        frameborder="0"
+        allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+        class="spotify-iframe"
+      >
+      </iframe>
     </div>
   </div>
 </header>
@@ -51,7 +77,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     height: 250px;
     border-radius: 50%;
     background-image: url("/public/standing-profile.jpg");
-    background-size: 150%; /* Zoom */
+    background-size: 150%;
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
@@ -73,7 +99,6 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     font-size: 0.8rem;
     font-weight: 600;
     transition: all 0.3s ease;
-    text-decoration: none;
     cursor: pointer;
   }
 
@@ -98,10 +123,88 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   }
 
-  /* Top-right positioning */
   .spotify-badge.top-right {
     top: 15px;
     right: 15px;
+  }
+
+  /* Spotify Player Overlay */
+  .spotify-player {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #191414 0%, #1db954 100%);
+    z-index: 1000;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .spotify-player.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  .spotify-player.visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .player-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .player-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    color: white;
+  }
+
+  .song-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .spotify-logo {
+    width: 24px;
+    height: 24px;
+    color: #1db954;
+  }
+
+  .now-playing {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .close-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+  }
+
+  .spotify-iframe {
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   }
 
   @keyframes pulse {
@@ -132,6 +235,14 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
       width: 14px;
       height: 14px;
     }
+
+    .player-container {
+      padding: 15px;
+    }
+
+    .now-playing {
+      font-size: 1rem;
+    }
   }
 
   @media (max-width: 480px) {
@@ -151,5 +262,49 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
       width: 12px;
       height: 12px;
     }
+
+    .player-container {
+      padding: 10px;
+    }
   }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const spotifyToggle = document.getElementById("spotify-toggle");
+    const spotifyPlayer = document.getElementById("spotify-player");
+    const closePlayer = document.getElementById("close-player");
+
+    spotifyToggle.addEventListener("click", function () {
+      spotifyPlayer.classList.remove("hidden");
+      spotifyPlayer.classList.add("visible");
+
+      // Add smooth animation from the badge position
+      spotifyToggle.style.transform = "scale(1.2)";
+      setTimeout(() => {
+        spotifyToggle.style.transform = "scale(1)";
+      }, 200);
+    });
+
+    closePlayer.addEventListener("click", function () {
+      spotifyPlayer.classList.remove("visible");
+      spotifyPlayer.classList.add("hidden");
+    });
+
+    // Close player when clicking outside
+    spotifyPlayer.addEventListener("click", function (e) {
+      if (e.target === spotifyPlayer) {
+        spotifyPlayer.classList.remove("visible");
+        spotifyPlayer.classList.add("hidden");
+      }
+    });
+
+    // Close with Escape key
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && spotifyPlayer.classList.contains("visible")) {
+        spotifyPlayer.classList.remove("visible");
+        spotifyPlayer.classList.add("hidden");
+      }
+    });
+  });
+</script>
