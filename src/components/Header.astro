@@ -1,245 +1,220 @@
 ---
+import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
 ---
 
-<!--
-  Lean academic header for Astro.
-  - Minimal, semantic, accessible
-  - Left: title + description
-  - Right: compact profile + nav links (desktop)
-  - Mobile: hamburger -> slide-down menu
-  - No heavy JS, only a tiny toggle for mobile
-  - Replace /public/profile.jpg and links with your own
--->
-<header class="site-header" role="banner">
-  <div class="container">
-    <div class="brand">
-      <a class="site-title" href="/">{SITE_TITLE}</a>
-      <p class="site-desc">{SITE_DESCRIPTION}</p>
+<header>
+  <div class="header-section">
+    <div class="header-frame">
+      <h1>{SITE_TITLE}</h1>
+      <h2>{SITE_DESCRIPTION}</h2>
     </div>
-
-    <button
-      id="mobile-toggle"
-      class="mobile-toggle"
-      aria-expanded="false"
-      aria-controls="primary-nav"
-    >
-      <span class="sr-only">Toggle navigation</span>
-      <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"
-        ><path
-          d="M3 6h18M3 12h18M3 18h18"
-          stroke="currentColor"
-          stroke-width="1.6"
-          stroke-linecap="round"></path></svg
-      >
-    </button>
-
-    <nav
-      id="primary-nav"
-      class="primary-nav"
-      role="navigation"
-      aria-label="Primary"
-    >
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/research">Research</a></li>
-        <li><a href="/publications">Publications</a></li>
-        <li><a href="/teaching">Teaching</a></li>
-        <li><a href="/cv.pdf" target="_blank" rel="noopener">CV</a></li>
-      </ul>
-    </nav>
-
-    <div class="profile">
-      <img
-        class="profile-img"
-        src="/public/profile.jpg"
-        alt="Profile photo"
-        width="56"
-        height="56"
-        loading="lazy"
-      />
-      <div class="meta">
-        <div class="name">Rafey</div>
-        <a class="contact-link" href="/contact">Contact</a>
+    <div class="header-frame">
+      <div class="profile-container">
+        <div class="zoomed-circle"></div>
+        <!-- Simple Spotify Badge -->
+        <button class="music-btn" id="music-toggle">
+          <svg viewBox="0 0 24 24" fill="#1db954">
+            <path
+              d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.84-.179-.959-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.361 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.299.421-1.02.599-1.559.3z"
+            ></path>
+          </svg>
+        </button>
       </div>
     </div>
   </div>
 </header>
 
+<nav>
+  <HeaderLink href="/">home</HeaderLink>
+  <HeaderLink href="/posts">posts</HeaderLink>
+</nav>
+
+<!-- Floating Music Player -->
+<div class="floating-player hidden" id="music-player">
+  <div class="player-card">
+    <iframe
+      src="https://open.spotify.com/embed/track/6Ql76QUTIXajTh9cVjrAZl?utm_source=generator&theme=0"
+      width="100%"
+      height="152"
+      frameborder="0"
+      allowfullscreen=""
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy"
+      style="border-radius: 12px;"
+    >
+    </iframe>
+
+    <button class="close-btn" id="close-player">✕</button>
+  </div>
+</div>
+
 <style>
-  :root {
-    --container-max: 1100px;
-    --accent: #0b5fff; /* subtle blue accent - change if you want */
-    --muted: #6b7280;
-    --bg: #ffffff;
-    --text: #0f172a;
+  h2 {
+    margin: 0.5em 0;
   }
 
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
+  .profile-container {
+    position: relative;
+    display: inline-block;
   }
 
-  .site-header {
-    background: var(--bg);
-    border-bottom: 1px solid #e6e9ef;
-    color: var(--text);
-    font-family:
-      Inter,
-      system-ui,
-      -apple-system,
-      "Segoe UI",
-      Roboto,
-      "Helvetica Neue",
-      Arial;
-  }
-
-  .container {
-    max-width: var(--container-max);
-    margin: 0 auto;
-    padding: 18px 24px;
-    display: grid;
-    grid-template-columns: 1fr auto auto;
-    gap: 16px;
-    align-items: center;
-  }
-
-  .brand {
-    min-width: 0;
-  }
-  .site-title {
-    display: block;
-    font-weight: 700;
-    font-size: 1.05rem;
-    line-height: 1;
-    color: var(--text);
-    text-decoration: none;
-  }
-  .site-desc {
-    margin: 6px 0 0 0;
-    font-size: 0.875rem;
-    color: var(--muted);
-  }
-
-  /* primary nav (desktop) */
-  .primary-nav ul {
-    display: flex;
-    gap: 14px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .primary-nav a {
-    text-decoration: none;
-    color: var(--muted);
-    font-size: 0.95rem;
-    padding: 6px 8px;
-    border-radius: 6px;
-  }
-  .primary-nav a:focus,
-  .primary-nav a:hover {
-    color: var(--text);
-    background: rgba(11, 95, 255, 0.06);
-    outline: 2px solid transparent;
-  }
-
-  .profile {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
-  .profile-img {
-    width: 56px;
-    height: 56px;
+  .zoomed-circle {
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
-    object-fit: cover;
-    border: 1px solid #e6e9ef;
-  }
-  .meta {
-    display: flex;
-    flex-direction: column;
-    font-size: 0.85rem;
-  }
-  .name {
-    font-weight: 600;
-  }
-  .contact-link {
-    color: var(--accent);
-    text-decoration: none;
-    font-size: 0.85rem;
-  }
-  .contact-link:hover {
-    text-decoration: underline;
+    background-image: url("/public/standing-profile.jpg");
+    background-size: 150%;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
   }
 
-  /* mobile toggle - hidden on desktop */
-  .mobile-toggle {
-    display: none;
-    background: transparent;
-    border: 0;
-    padding: 6px;
-    border-radius: 6px;
+  /* Simple Music Button */
+  .music-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     cursor: pointer;
-  }
-  .mobile-toggle svg {
-    color: var(--muted);
-  }
-
-  /* Responsive: collapse nav into a dropdown under header on small screens */
-  @media (max-width: 820px) {
-    .container {
-      grid-template-columns: 1fr auto;
-      align-items: center;
-    }
-    .primary-nav {
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 100%;
-      background: var(--bg);
-      border-bottom: 1px solid #e6e9ef;
-      padding: 12px 24px;
-      display: none;
-    }
-    .primary-nav.open {
-      display: block;
-    }
-    .primary-nav ul {
-      flex-direction: column;
-      gap: 8px;
-    }
-    .profile {
-      display: none;
-    } /* hide profile on small screens to keep header tidy */
-    .mobile-toggle {
-      display: inline-flex;
-    }
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  /* Reduce visual noise for print and prefers-reduced-motion */
-  @media (prefers-reduced-motion: reduce) {
-    * {
-      transition: none !important;
+  .music-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 20px rgba(29, 185, 84, 0.3);
+  }
+
+  .music-btn svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  /* Floating Player */
+  .floating-player {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    opacity: 0;
+  }
+
+  .floating-player.visible {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+
+  .player-card {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    width: 350px;
+    position: relative;
+  }
+
+  .track-info {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  .track-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+  }
+
+  .artist-name {
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #f5f5f5;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    color: #666;
+    transition: all 0.2s ease;
+  }
+
+  .close-btn:hover {
+    background: #e5e5e5;
+    transform: scale(1.1);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .zoomed-circle {
+      width: 200px;
+      height: 200px;
+    }
+
+    .player-card {
+      width: 300px;
+      padding: 15px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .zoomed-circle {
+      width: 150px;
+      height: 150px;
+    }
+
+    .player-card {
+      width: 280px;
+      margin: 20px;
     }
   }
 </style>
 
 <script>
-  // Tiny, dependency-free mobile toggle
-  document.addEventListener("DOMContentLoaded", () => {
-    const btn = document.getElementById("mobile-toggle");
-    const nav = document.getElementById("primary-nav");
-    btn?.addEventListener("click", () => {
-      if (nav) {
-        const open = nav.classList.toggle("open");
-        btn.setAttribute("aria-expanded", String(open));
+  document.addEventListener("DOMContentLoaded", function () {
+    const musicToggle = document.getElementById("music-toggle");
+    const musicPlayer = document.getElementById("music-player");
+    const closePlayer = document.getElementById("close-player");
+
+    musicToggle.addEventListener("click", function () {
+      musicPlayer.classList.remove("hidden");
+      musicPlayer.classList.add("visible");
+    });
+
+    closePlayer.addEventListener("click", function () {
+      musicPlayer.classList.remove("visible");
+      setTimeout(() => {
+        musicPlayer.classList.add("hidden");
+      }, 300);
+    });
+
+    // Close on backdrop click
+    musicPlayer.addEventListener("click", function (e) {
+      if (e.target === musicPlayer) {
+        closePlayer.click();
+      }
+    });
+
+    // Close with Escape
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && musicPlayer.classList.contains("visible")) {
+        closePlayer.click();
       }
     });
   });
