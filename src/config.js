@@ -1,2 +1,2 @@
-export const SITE_TITLE = "Rafey Farooqi";
-export const SITE_DESCRIPTION = "Prospective GradSchool Applicant";
+export const SITE_TITLE = "Muhammad Abdul Rafey Farooqi";
+export const SITE_DESCRIPTION = "Senior Year @ NUST";
