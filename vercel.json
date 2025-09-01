@@ -1,0 +1,5 @@
+{
+  "redirects": [
+    { "source": "/post/:slug", "destination": "/posts/:slug/", "permanent": true }
+  ]
+}
