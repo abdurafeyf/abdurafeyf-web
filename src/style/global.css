@@ -154,6 +154,20 @@ ul.tags-list {
 	font-size: 1.3em;
 }
 
+ul.publications-list,
+ul.tags-list {
+	padding: unset;
+	list-style-type: none;
+}
+
+.publication {
+	margin: 0 0 30px 0;
+}
+
+.publication .title {
+	font-size: 1.3em;
+}
+
 .tags {
 	display: flex;
 	flex-wrap: wrap;
@@ -248,6 +262,14 @@ article :not(.article-title) {
 }
 
 .blog-post > * + * {
+	margin-block-start: 1em;
+}
+
+.blog-publication {
+	font-size: clamp(1rem, 0.96rem + 0.22vw, 1.125rem);
+}
+
+.blog-publication > * + * {
 	margin-block-start: 1em;
 }
 
