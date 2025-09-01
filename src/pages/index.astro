@@ -9,6 +9,7 @@ import Tags from "../components/Tags.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
 import { Content as About } from "./about.md";
 import getTags from "../scripts/getTags";
+import Analytics from "@vercel/analytics/astro";
 
 const publications = await getCollection("publications");
 const tags = getTags(publications);
@@ -34,5 +35,6 @@ const tags = getTags(publications);
     </main>
     <Footer />
     <ColorScript />
+    <Analytics />
   </body>
 </html>
