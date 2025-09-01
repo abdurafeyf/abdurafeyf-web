@@ -10,8 +10,8 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
 import { Content as About } from "./about.md";
 import getTags from "../scripts/getTags";
 
-const posts = await getCollection("posts");
-const tags = getTags(posts);
+const publications = await getCollection("publications");
+const tags = getTags(publications);
 ---
 
 <!doctype html>
@@ -24,9 +24,9 @@ const tags = getTags(posts);
 
       <br />
 
-      <h3>Here's my most recent posts</h3>
+      <h3>Here's my most recent publications</h3>
 
-      <HomePosts allPosts={posts} />
+      <HomePosts allPosts={publications} />
 
       <br />
 

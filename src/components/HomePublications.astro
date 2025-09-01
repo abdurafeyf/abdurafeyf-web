@@ -1,0 +1,27 @@
+---
+import Publication from "../components/Publication.astro";
+
+const { allPublications } = Astro.props;
+
+//.sort(() => 0.5 - Math.random()).slice(0, 3);
+
+let publications = allPublications
+  .sort(
+    (a, b) =>
+      new Date(b.data.updated || b.data.added).valueOf() -
+      new Date(a.data.updated || a.data.added).valueOf()
+  )
+  .slice(0, 5);
+---
+
+<content>
+  <ul class="posts-list">
+    {
+      publications.map(
+        ({ url, data: { description, slug, title, tags, added: date } }) => (
+          <Publication {url} {description} {date} {slug} {title} {tags} />
+        )
+      )
+    }
+  </ul>
+</content>
