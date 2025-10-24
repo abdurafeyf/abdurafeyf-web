@@ -5,6 +5,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import Publication from "../components/Publication.astro";
 import ColorScript from "../components/ColorScript.astro";
+import Analytics from "@vercel/analytics/astro";
 
 import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
 
@@ -38,5 +39,6 @@ publications = publications.sort(
     </main>
     <Footer />
     <ColorScript />
+    <Analytics />
   </body>
 </html>
