@@ -1,7 +1,6 @@
 ---
 title: >-
-  Radixpert: A Staged Adaptation and Hierarchical Fusion Framework for Radiology
-  VLMs
+  Radixpert: A Multimodal Approach to Medical Imaging
 slug: radixpert
 description: Radiology Report Generation (2D)
 tags:
