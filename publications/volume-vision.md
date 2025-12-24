@@ -1,7 +1,6 @@
 ---
 title: >-
-  VolumeVision: A 2.5D Hierarchical Architecture for Efficient Automated
-  Reporting of Chest CT Volumes
+  VolumeVision: A 2.5D Hierarchical Architecture for Efficient Automated Reporting of Chest CT Volumes
 slug: volume-vision
 description: CT-RATE
 tags:
