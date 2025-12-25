@@ -6,7 +6,7 @@ import Footer from "../components/Footer.astro";
 import HomePublications from "../components/HomePublications.astro";
 import ColorScript from "../components/ColorScript.astro";
 import Tags from "../components/Tags.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
+import { SITE_TITLE_URDU, SITE_DESCRIPTION } from "../config";
 import getTags from "../scripts/getTags";
 import Analytics from "@vercel/analytics/astro";
 
@@ -16,7 +16,10 @@ const tags = getTags(publications);
 
 <!doctype html>
 <html lang="ur" dir="rtl">
-  <BaseHead title={SITE_TITLE + " - اردو"} description={SITE_DESCRIPTION} />
+  <BaseHead
+    title={SITE_TITLE_URDU + " - اردو"}
+    description={SITE_DESCRIPTION}
+  />
   <body dir="rtl">
     <Header />
     <main>
