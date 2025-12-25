@@ -4,19 +4,21 @@ import { SITE_TITLE_URDU, SITE_DESCRIPTION } from "../config";
 ---
 
 <header>
+  <a href="/" class="lang-link">English</a>
+
   <div class="header-section">
     <div class="header-frame">
       <h1>{SITE_TITLE_URDU}</h1>
-      {SITE_DESCRIPTION}ای میل:
+      <p>{SITE_DESCRIPTION}</p>
+      <p>ای میل: mfarooqi.bese21seecs@seecs.edu.pk</p>
     </div>
     <div class="header-frame">
       <div class="profile-container">
         <div class="zoomed-circle"></div>
-        <!-- Refined Spotify Logo Overlay -->
         <div
           class="spotify-logo-overlay"
           id="spotify-trigger"
-          title="Toggle Spotify Player"
+          title="Spotify Player چلائیں"
         >
           <svg
             width="24"
@@ -36,12 +38,11 @@ import { SITE_TITLE_URDU, SITE_DESCRIPTION } from "../config";
 </header>
 
 <nav>
-  <HeaderLink href="/">home</HeaderLink>
-  <HeaderLink href="/posts">posts</HeaderLink>
-  <HeaderLink href="/publications">publications</HeaderLink>
+  <HeaderLink href="/ur">گھر</HeaderLink>
+  <HeaderLink href="/ur/posts">تحریریں</HeaderLink>
+  <HeaderLink href="/ur/publications">مطبوعات</HeaderLink>
 </nav>
 
-<!-- Spotify Widget Container - Initially hidden -->
 <div class="spotify-widget-container" id="spotify-widget-container">
   <div class="spotify-widget">
     <iframe
@@ -88,6 +89,9 @@ import { SITE_TITLE_URDU, SITE_DESCRIPTION } from "../config";
   .spotify-logo-overlay {
     position: absolute;
     bottom: 10px;
+    /* Changed from right to left for RTL layout adjustment if needed, 
+       but usually absolute positioning needs specific checking in RTL. 
+       Keeping 'right' fits standard placement, but 'left' might be better for RTL. */
     right: 10px;
     width: 44px;
     height: 44px;
@@ -100,27 +104,17 @@ import { SITE_TITLE_URDU, SITE_DESCRIPTION } from "../config";
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     border: 1px solid rgba(255, 255, 255, 0.1);
-
-    /* MODIFICATION: Always visible, not just on hover */
     opacity: 1;
     transform: translateY(0);
   }
 
-  /* REMOVED: The rule that made the logo appear only on profile hover */
-  /*
-  .profile-container:hover .spotify-logo-overlay {
-    opacity: 1; 
-    transform: translateY(0);
-  }
-  */
-
   .spotify-logo-overlay:hover {
-    background-color: #1db954; /* Spotify green on hover */
-    transform: scale(1.1); /* Kept the direct hover effect */
+    background-color: #1db954;
+    transform: scale(1.1);
   }
 
   .spotify-logo-overlay.active {
-    background-color: #1db954; /* Stays green when active */
+    background-color: #1db954;
   }
 
   .spotify-logo-overlay svg {
@@ -163,11 +157,11 @@ import { SITE_TITLE_URDU, SITE_DESCRIPTION } from "../config";
     display: block;
   }
 
-  /* --- Urdu link (top-right) --- */
+  /* --- Urdu link (top-left for RTL) --- */
   .lang-link {
     position: absolute;
     top: 14px;
-    right: 14px;
+    left: 14px; /* Changed from right to left for RTL header logic */
     color: inherit;
     text-decoration: none;
     font-weight: 600;
