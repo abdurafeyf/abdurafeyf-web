@@ -1,0 +1,45 @@
+---
+import { getCollection } from "astro:content";
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import HomePublications from "../components/HomePublications.astro";
+import ColorScript from "../components/ColorScript.astro";
+import Tags from "../components/Tags.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
+import getTags from "../scripts/getTags";
+import Analytics from "@vercel/analytics/astro";
+
+const publications = await getCollection("publications");
+const tags = getTags(publications);
+---
+
+<!doctype html>
+<html lang="ur" dir="rtl">
+  <BaseHead title={SITE_TITLE + " - اردو"} description={SITE_DESCRIPTION} />
+  <body dir="rtl">
+    <Header />
+    <main>
+      <section>
+        <h2>میرے بارے میں</h2>
+        <p>
+          یہ ورژن اردو میں ہے — سائٹ کے اہم صفحات اور مواد کا اردو ترجمہ یہاں
+          دکھایا جائے گا۔
+        </p>
+      </section>
+
+      <br />
+
+      <h3>یہاں میری تازہ ترین مطبوعات ہیں</h3>
+
+      <HomePublications allPublications={publications} />
+
+      <br />
+
+      <Tags tags={tags} all />
+    </main>
+    <Footer />
+    <ColorScript />
+    <Analytics />
+  </body>
+</html>

@@ -58,6 +58,10 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
 </div>
 
 <style>
+  header {
+    position: relative;
+  }
+
   h2 {
     margin: 0.5em 0;
   }
@@ -157,6 +161,29 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
   .spotify-widget iframe {
     border-radius: 12px;
     display: block;
+  }
+
+  /* --- Urdu link (top-right) --- */
+  .lang-link {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    color: inherit;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    transition:
+      background 0.15s ease,
+      transform 0.12s ease;
+  }
+
+  .lang-link:hover {
+    background: rgba(255, 255, 255, 0.04);
+    transform: translateY(-1px);
   }
 
   /* --- Responsive Design --- */
