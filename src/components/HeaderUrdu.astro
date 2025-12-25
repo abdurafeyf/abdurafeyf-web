@@ -1,0 +1,236 @@
+---
+import HeaderLink from "./HeaderLink.astro";
+import { SITE_TITLE_URDU, SITE_DESCRIPTION } from "../config";
+---
+
+<header>
+  <div class="header-section">
+    <div class="header-frame">
+      <h1>{SITE_TITLE_URDU}</h1>
+      {SITE_DESCRIPTION}ای میل:
+    </div>
+    <div class="header-frame">
+      <div class="profile-container">
+        <div class="zoomed-circle"></div>
+        <!-- Refined Spotify Logo Overlay -->
+        <div
+          class="spotify-logo-overlay"
+          id="spotify-trigger"
+          title="Toggle Spotify Player"
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm4.594 14.334c-.2.32-.626.42-1.02.24-2.6-1.58-5.88-1.95-9.72-1.06-.37.09-.74-.13-1.01-.5-.27-.37-.18-.83.19-1.01 4.26-.98 8.02-.56 10.99 1.22.39.23.51.7.25 1.11zm1.35-3.01c-.25.41-.78.53-1.19.28-2.98-1.83-7.51-2.36-11.03-1.29-.47.14-.96-.12-1.1-.59-.14-.47.12-.96.59-1.1 4.09-1.24 9.25-.64 12.74 1.51.4.25.53.78.28 1.19zm.12-3.14c-3.57-2.12-9.46-2.32-12.87-1.28-.56.17-1.15-.15-1.32-.7-.17-.56.15-1.15.7-1.32 3.9-.19 10.46-.97 14.61 1.48.49.29.65.92.36 1.41-.29.49-.92.65-1.41.36z"
+            ></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <HeaderLink href="/">home</HeaderLink>
+  <HeaderLink href="/posts">posts</HeaderLink>
+  <HeaderLink href="/publications">publications</HeaderLink>
+</nav>
+
+<!-- Spotify Widget Container - Initially hidden -->
+<div class="spotify-widget-container" id="spotify-widget-container">
+  <div class="spotify-widget">
+    <iframe
+      src="https://open.spotify.com/embed/track/1pNUmVxDiE8t6P1XxcZAv8?utm_source=generator"
+      width="100%"
+      height="152"
+      frameborder="0"
+      allowfullscreen=""
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy"
+    >
+    </iframe>
+  </div>
+</div>
+
+<style>
+  header {
+    position: relative;
+  }
+
+  h2 {
+    margin: 0.5em 0;
+  }
+
+  .profile-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  .zoomed-circle {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background-image: url("/public/standing-profile.jpg");
+    background-size: 150%;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    transition: filter 0.3s ease;
+  }
+
+  /* --- Refined Spotify Integration --- */
+
+  .spotify-logo-overlay {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 44px;
+    height: 44px;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    /* MODIFICATION: Always visible, not just on hover */
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* REMOVED: The rule that made the logo appear only on profile hover */
+  /*
+  .profile-container:hover .spotify-logo-overlay {
+    opacity: 1; 
+    transform: translateY(0);
+  }
+  */
+
+  .spotify-logo-overlay:hover {
+    background-color: #1db954; /* Spotify green on hover */
+    transform: scale(1.1); /* Kept the direct hover effect */
+  }
+
+  .spotify-logo-overlay.active {
+    background-color: #1db954; /* Stays green when active */
+  }
+
+  .spotify-logo-overlay svg {
+    color: #fff;
+    width: 22px;
+    height: 22px;
+    transition: transform 0.3s ease;
+  }
+
+  .spotify-logo-overlay:hover svg {
+    transform: rotate(10deg) scale(1.05);
+  }
+
+  /* --- Spotify Widget Container --- */
+
+  .spotify-widget-container {
+    max-height: 0;
+    overflow: hidden;
+    transition:
+      max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+      margin-top 0.5s ease;
+  }
+
+  .spotify-widget-container.visible {
+    max-height: 200px;
+    margin-top: 1rem;
+  }
+
+  .spotify-widget {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .spotify-widget iframe {
+    border-radius: 12px;
+    display: block;
+  }
+
+  /* --- Urdu link (top-right) --- */
+  .lang-link {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    color: inherit;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    transition:
+      background 0.15s ease,
+      transform 0.12s ease;
+  }
+
+  .lang-link:hover {
+    background: rgba(255, 255, 255, 0.04);
+    transform: translateY(-1px);
+  }
+
+  /* --- Responsive Design --- */
+  @media (max-width: 768px) {
+    .zoomed-circle {
+      width: 200px;
+      height: 200px;
+    }
+    .spotify-logo-overlay {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .zoomed-circle {
+      width: 150px;
+      height: 150px;
+    }
+    .spotify-logo-overlay {
+      width: 36px;
+      height: 36px;
+      bottom: 5px;
+      right: 5px;
+    }
+    .spotify-logo-overlay svg {
+      width: 18px;
+      height: 18px;
+    }
+    .spotify-widget iframe {
+      height: 132px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const trigger = document.getElementById("spotify-trigger");
+    const widgetContainer = document.getElementById("spotify-widget-container");
+
+    if (trigger && widgetContainer) {
+      trigger.addEventListener("click", (e) => {
+        e.stopPropagation();
+
+        const isVisible = widgetContainer.classList.toggle("visible");
+        trigger.classList.toggle("active", isVisible);
+      });
+    }
+  });
+</script>
