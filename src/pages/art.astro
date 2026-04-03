@@ -1,0 +1,147 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import ColorScript from "../components/ColorScript.astro";
+import Analytics from "@vercel/analytics/astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../config";
+
+// TODO: Define art pieces with title, image, caption, and category
+const artPieces = [
+  {
+    title: "Abstract Portrait",
+    image: "/assets/artimages/ASRind.png",
+    caption: "A 2015 semi-abstract painting by A.S. Rind.",
+    category: "default", // blue
+  },
+];
+
+const categoryColors = {
+  calligraphy: "var(--blue)",
+  textiles: "var(--green)",
+  architecture: "var(--yellow)",
+  default: "var(--red)",
+};
+---
+
+<!doctype html>
+<html lang="en-us">
+  <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  <body>
+    <Header />
+    <main>
+      <section class="art-intro">
+        <h2>Archived Artifacts</h2>
+        <p>
+          A collection of visual work treated as archived specimens. Each piece
+          presented with deliberate clarity and minimal framing.
+        </p>
+      </section>
+
+      <div class="art-grid">
+        {
+          artPieces.length > 0 ? (
+            artPieces.map((piece) => (
+              <div class="art-piece">
+                <img src={piece.image} alt={piece.title} class="art-image" />
+                <div class="art-caption">
+                  <span
+                    class="category-label"
+                    style={`border-bottom: 2px solid ${categoryColors[piece.category] || categoryColors.default}`}
+                  >
+                    [{piece.category}]
+                  </span>
+                  <p>{piece.caption}</p>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p style="grid-column: 1 / -1; text-align: center;">
+              No art pieces uploaded yet.
+            </p>
+          )
+        }
+      </div>
+    </main>
+    <Footer />
+    <ColorScript />
+    <Analytics />
+  </body>
+</html>
+
+<style>
+  .art-intro {
+    margin-bottom: 2em;
+    text-align: center;
+  }
+
+  .art-intro h2 {
+    font-weight: 400;
+    margin-bottom: 0.5em;
+  }
+
+  .art-intro p {
+    color: var(--gray);
+    font-size: 0.95rem;
+  }
+
+  .art-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2em;
+    margin: 2em 0;
+  }
+
+  @media (max-width: 768px) {
+    .art-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5em;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .art-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .art-piece {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .art-image {
+    width: 100%;
+    display: block;
+    margin-bottom: 1em;
+    /* Sharp edges, no border-radius */
+    /* No drop shadow */
+  }
+
+  .art-caption {
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+  }
+
+  .category-label {
+    display: inline-block;
+    font-family: "iA Writer Mono", monospace;
+    font-weight: 600;
+    padding-bottom: 0.2em;
+    margin-bottom: 0.5em;
+    text-transform: lowercase;
+  }
+
+  .art-caption p {
+    font-family: "iA Writer Mono", monospace;
+    color: var(--black);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .art-caption p {
+      color: var(--white);
+    }
+  }
+</style>
