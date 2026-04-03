@@ -1,0 +1,31 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import HeaderUrdu from "../../components/HeaderUrdu.astro";
+import Footer from "../../components/Footer.astro";
+import ColorScript from "../../components/ColorScript.astro";
+import Analytics from "@vercel/analytics/astro";
+import { SITE_TITLE_URDU, SITE_DESCRIPTION } from "../../config";
+---
+
+<!doctype html>
+<html lang="ur" dir="rtl">
+  <BaseHead
+    title={SITE_TITLE_URDU + " - تحریریں"}
+    description={SITE_DESCRIPTION}
+  />
+  <body dir="rtl">
+    <HeaderUrdu />
+    <main>
+      <section>
+        <h2>تحریریں جلد آ رہی ہیں</h2>
+        <p>
+          معذرت، اردو میں تحریریں ابھی ترتیب دی جا رہی ہیں۔ براہِ کرم تھوڑا
+          انتظار کریں۔
+        </p>
+      </section>
+    </main>
+    <Footer />
+    <ColorScript />
+    <Analytics />
+  </body>
+</html>

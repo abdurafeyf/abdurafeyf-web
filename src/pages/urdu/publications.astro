@@ -1,0 +1,30 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import HeaderUrdu from "../../components/HeaderUrdu.astro";
+import Footer from "../../components/Footer.astro";
+import ColorScript from "../../components/ColorScript.astro";
+import Analytics from "@vercel/analytics/astro";
+import { SITE_TITLE_URDU, SITE_DESCRIPTION } from "../../config";
+---
+
+<!doctype html>
+<html lang="ur" dir="rtl">
+  <BaseHead
+    title={SITE_TITLE_URDU + " - مطبوعات"}
+    description={SITE_DESCRIPTION}
+  />
+  <body dir="rtl">
+    <HeaderUrdu />
+    <main>
+      <section>
+        <h2>مطبوعات جلد دستیاب ہوں گی</h2>
+        <p>
+          اردو میں مطبوعات پر کام جاری ہے۔ آپ جلد ہی ان کو یہاں دیکھ سکیں گے۔
+        </p>
+      </section>
+    </main>
+    <Footer />
+    <ColorScript />
+    <Analytics />
+  </body>
+</html>
