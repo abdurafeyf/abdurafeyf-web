@@ -6,4 +6,4 @@ Previously, I was a [Mitacs](https://globalink.mitacs.ca/) intern at the Univers
 
 I also spent an exchange semester at [Utah Tech University](https://utahtech.edu/), where most of my time was spent studying courses like Distributed Computing, Machine Learning, and American Governmen or playing piano & pickleball. St. George, Utah, will always remain close to my heart. I was honored to serve the community during my stay. I volunteered at the [Dove Center](https://dovecenter.org/), a shelter for domestic abuse survivors. We also organized Chinese New Year at the [Atwood Innovation Plaza](https://innovation.utahtech.edu/) and had the opportunity to simulate an accident with medical students at [Intermountain Health St. George Regional Hospital](https://intermountainhealthcare.org/locations/st-george-regional-hospital).
 
-Feel free to reach out to me at [mfarooqi.bese21seecs@seecs.edu.pk](mailto:mfarooqi.bese21seecs@seecs.edu.pk) — I'd love to talk about anything.
+Feel free to reach out to me at [farooqim@purdue.edu](mailto:farooqim@purdue.edu) — I'd love to talk about anything.
